@@ -66,6 +66,7 @@ namespace projekt_pa_Dorian1996
                 paddle_direction = Direction.Right; //Jeżeli została wciśnięta prawa strzałka to nadaj prawy kierunek paletce.
             }
         }
+        //komentarz do commita
 
         private void FormMain_KeyUp(object sender, KeyEventArgs e) //Obsługa zdarzeń zwolnionych klawiszy na klawiaturze.
         {
