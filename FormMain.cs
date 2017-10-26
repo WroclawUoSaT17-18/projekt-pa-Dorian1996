@@ -12,6 +12,7 @@ namespace projekt_pa_Dorian1996
 {
     public partial class FormMain : Form
     {
+
         enum Direction //Typ wyliczeniowy służący do nadania kierunku, który z kolei umożliwi ruch paletki w odpowiednim kierunku. Przyjmuje wartości: Left, Right i None.
         {
             Left, //Lewy Left = 0.
@@ -19,6 +20,9 @@ namespace projekt_pa_Dorian1996
             None //Żaden, Spoczynkowy None = 2.
         }
 
+        private bool ballOnPaddle; //Zmienna typu logicznego która posłuży do opisu współrzędnej czy piłka przylega do paletki.
+        private int ball_x; //Zmienna typu całkowitego która posłuży do opisu współrzędnej x piłki.
+        private int ball_y; //Zmienna typu całkowitego która posłuży do opisu współrzędnej x piłki.
         private int paddle_x; //Zmienna typu całkowitego która posłuży do opisu współrzędnej x paletki.
         private int paddle_y; //Zmienna typu całkowitego która posłuży do opisu współrzędnej y paletki.
         private Direction paddle_direction; //Zmienna opisująca kierunek paletki,nowy obiekt klasy enum Direction który może używać jej parametrów.
@@ -27,6 +31,9 @@ namespace projekt_pa_Dorian1996
         {
             InitializeComponent();//Metoda obsługująca kontrolki interfejsu użytkownika.
 
+            ballOnPaddle = true; 
+            ball_x = 380+50/2-5;
+            ball_y = 550-10;
             paddle_x = 380; //Nadanie wartości początkowej zmiennej paddle_x, czyli nadanie współrzędnej x paletki.
             paddle_y = 550; //Nadanie wartości początkowej zmiennej paddle_y, czyli nadanie współrzędnej y paletki.
             paddle_direction = Direction.None; //Nadanie wartości początkowej zmiennej paddle_direction, czyli nadanie jej kierunku "spoczynkowego", żeby sie nie ruszała od początku.
@@ -35,6 +42,16 @@ namespace projekt_pa_Dorian1996
         private void FormMain_Paint(object sender, PaintEventArgs e) //Zdarzenie, które opisuje rysowanie w oknie.
         {
             e.Graphics.FillRectangle(Brushes.White, paddle_x, paddle_y, 50, 10); //Narysowanie prostokąta, poprzez wypełnienie pewnej ograniczonej przestrzeni dwuwymiarowej, kolorem białym. Lewy górny róg ma współrzędne(x = paddle_x = 375, y = paddle_y = 500). Szerokość prostokąta to 50 pikseli, a jego wysokość to 10 pikseli.
+
+            e.Graphics.FillEllipse(Brushes.Coral, ball_x, ball_y, 10, 10); //Rysowanie piłki
+
+            for (int j = 0; j != 8; j++) 
+            {
+                for (int i = 0; i != 12; i++)
+                {
+                    e.Graphics.FillRectangle(Brushes.CornflowerBlue, 0 + i * 66, 0 + j * 16, 60, 10); //Rysowanie bloków
+                }
+            }
         }
 
         private void TimerRefresh_Tick(object sender, EventArgs e) //Obsługa zdarzeń licznika czasu
@@ -42,14 +59,27 @@ namespace projekt_pa_Dorian1996
             if (paddle_direction == Direction.None)
             {
                 paddle_x += 0; //Jeżeli paletka ma spoczynkowy kierunek nie została przyciśnięta żadna strzałka na klawiaturze, to niech paletka stoi w miejscu.
+                if (ballOnPaddle == true)
+                {
+                    ball_x += 0; //Jeśli piłka leży na paletce to stoi w miejscu razem z nią
+                }
             }
+
             else if (paddle_direction == Direction.Right)
             {
                 paddle_x += 6; //Jeżeli paletka ma prawy kierunek, czyli została przyciśnięta prawa strzałka na klawiaturze, to przesuń w prawo paletkę o 6 pixeli.
+                if (ballOnPaddle == true)
+                {
+                    ball_x += 6; //Jeśli piłka leży na paletce to porusza się z nią w prawo
+                }
             }
             else if (paddle_direction == Direction.Left)
             {
                 paddle_x -= 6; //Jeżeli paletka ma lewy kierunek, czyli została przyciśnięta prawa strzałka na klawiaturze, to przesuń w lewo paletkę o 6 pixeli.
+                if(ballOnPaddle == true)
+                {
+                    ball_x -= 6; //Jeśli piłka leży na paletce to porusza się z nią
+                }
             }
 
             Invalidate(); //Odświeża obraz czyli co każdy "tick" licznika zostany odświeżony obraz co umożliwia animacje paletki.
@@ -66,7 +96,6 @@ namespace projekt_pa_Dorian1996
                 paddle_direction = Direction.Right; //Jeżeli została wciśnięta prawa strzałka to nadaj prawy kierunek paletce.
             }
         }
-        //komentarz do commita
 
         private void FormMain_KeyUp(object sender, KeyEventArgs e) //Obsługa zdarzeń zwolnionych klawiszy na klawiaturze.
         {
