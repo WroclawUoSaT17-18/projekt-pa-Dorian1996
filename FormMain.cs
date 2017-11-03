@@ -86,7 +86,8 @@ namespace projekt_pa_Dorian1996
                 {
                     if (ball_x - 40 <= block_x && ball_x + 20 >= block_x) //Kolizja piłki z blokiem
                     {
-                        block.Visible = false;
+                        block.Dispose();
+                       // block.Visible = false;
                         ball_y += 20; //Piłka leci w dół jej y zwiększa się o 10 co tick
                         ball.Location = new Point(ball_x, ball_y);
                     }
@@ -141,5 +142,7 @@ namespace projekt_pa_Dorian1996
                 paddle_direction = Direction.None; //Jeżeli została zwolniona prawa strzałka to nadaj kierunek spoczynkowy paletce.
             }
         }
+
+
     }
 }

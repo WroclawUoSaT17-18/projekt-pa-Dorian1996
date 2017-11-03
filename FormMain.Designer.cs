@@ -98,6 +98,7 @@
             this.MinimizeBox = false;
             this.Name = "FormMain";
             this.Text = "Arkanoid Dorian Antonkiewicz";
+            this.Load += new System.EventHandler(this.FormMain_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormMain_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FormMain_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.paddle)).EndInit();
