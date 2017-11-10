@@ -51,7 +51,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.paddle.BackColor = System.Drawing.Color.Transparent;
-            this.paddle.Image = ((System.Drawing.Image)(resources.GetObject("paddle.Image")));
+            this.paddle.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("paddle.BackgroundImage")));
             this.paddle.Location = new System.Drawing.Point(363, 545);
             this.paddle.Name = "paddle";
             this.paddle.Size = new System.Drawing.Size(64, 16);
@@ -64,7 +64,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ball.BackColor = System.Drawing.Color.Transparent;
-            this.ball.Image = ((System.Drawing.Image)(resources.GetObject("ball.Image")));
+            this.ball.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ball.BackgroundImage")));
             this.ball.Location = new System.Drawing.Point(389, 545);
             this.ball.Name = "ball";
             this.ball.Size = new System.Drawing.Size(8, 8);
@@ -77,7 +77,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.block.BackColor = System.Drawing.Color.Transparent;
-            this.block.Image = ((System.Drawing.Image)(resources.GetObject("block.Image")));
+            this.block.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("block.BackgroundImage")));
             this.block.Location = new System.Drawing.Point(379, 12);
             this.block.Name = "block";
             this.block.Size = new System.Drawing.Size(48, 16);
@@ -88,8 +88,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackColor = System.Drawing.SystemColors.HotTrack;
             this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.block);
             this.Controls.Add(this.ball);
@@ -101,6 +100,8 @@
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormMain_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FormMain_KeyUp);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormMain_MouseDown);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FormMain_MouseUp);
             ((System.ComponentModel.ISupportInitialize)(this.paddle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ball)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.block)).EndInit();

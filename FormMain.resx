@@ -121,23 +121,36 @@
     <value>17, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="paddle.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="paddle.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
+<<<<<<< HEAD
+        iVBORw0KGgoAAAANSUhEUgAAAEAAAAAQCAYAAACm53kpAAAABGdBTUEAALGPC/xhBQAAAOBJREFUWEfl
+        lLERwyAMRSkpU3qElClTahTKjMEYjME4GYWO3OciTnBKzl0gKt4ZPjLW/zZ2jsg2qmgJVbSEKlpCTtJx
+        r8zjcq3QYowVhBDadQdkr7MvID0P5p+30EEA3vuac25gMx6vjuwVHqQv9jYEwEWllA4HILUdmT1wANBb
+        AFwkE5JFWqqrc+YLYG/t7XufhjMCuAibgfkfgPlKzL3xGB50b6mtvY/A5wD4AUTUx9r8l3zr7VQAAKKE
+        /NEKsNnOwIPmjX33AAAWJLj5H5h9Sc9DACZRRUuooiVU0QzkXmBwd20NnfjEAAAAAElFTkSuQmCC
+=======
         iVBORw0KGgoAAAANSUhEUgAAAEAAAAAQCAYAAACm53kpAAAABGdBTUEAALGPC/xhBQAAAJdJREFUWEft
         lMENgCAMRTuIN/ZwBKdwDIdjC8ZRWgIa+aHxWOrhxeS1HP5PIx1bcA2UnoDSE1gSnRU0t4SWpRMiy/I0
         BeTv9wL2dZmmgFEWWUDURzOgZCkn8qY+SimZhjNwFpSxFcALCJ7FGE2j5ZMCEI8F8wyz5FNAP4b2CM0t
         oWXphMi/gPtE0NwSWpZOeANKT0Dph0AXoonKoWdz+iAAAAAASUVORK5CYII=
+>>>>>>> f637964ac34ccae638e0c0335b4170e031328868
 </value>
   </data>
-  <data name="ball.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="ball.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAABGdBTUEAALGPC/xhBQAAADxJREFUKFNj
         QAL/0TAK+H/lyhUUDBKDSCFJPnv2DIxBAFkRiiQMk64AWRGMD1MAAnBBbJIwABNEkmRgAAA6ZYZWh37Z
         /wAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="block.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="block.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
+<<<<<<< HEAD
+        iVBORw0KGgoAAAANSUhEUgAAADAAAAAQCAYAAABQrvyxAAAABGdBTUEAALGPC/xhBQAAAFNJREFUSEvt
+        1bENACAIRFHGYGRGciYmoMNggo325AjFp5CGV0mq6oiJLGdmhwTE8Q/AzGBqAyCiAZQ0gOoGUF0C5h+o
+        qicgH5G6gN8SoQOIgRv7Bo3IeP+/Kx06AAAAAElFTkSuQmCC
+=======
         iVBORw0KGgoAAAANSUhEUgAAADAAAAAQCAYAAABQrvyxAAAABGdBTUEAALGPC/xhBQAAARtJREFUSEu1
         lFkSgzAMQ3t0jtab0dixUiNsHDZmHqkVSQk//bRnFdojLwVatFfBOZ7P4LOcd3p7LX/TmD2m+4KMkTc/
         zzNoBjkPdOz13zbMYGE+0DP6zOtn9jIb/wzdT+IMdhBfQEj7Er+gmSx3RM+ReAYczLS9hdbQB9B3lp4n
@@ -397,6 +410,7 @@
         VdXC2mCpqqqqFtYGS1VVVbWwNliqqqqqhbXBUlVVVS2sDZaqqqpqYW2wVFVVVQtrg6WqqqpaWBssVVVV
         1cLaYKmqqqoW1gZLVVVVtbA2WKqqqqqFtcFSVVVVLawNlqqqqmphbbBUVVVVC2uDpaqqqlpYGyxVVVXV
         ov7rv/4XOU/2M0PG6BkAAAAASUVORK5CYII=
+>>>>>>> f637964ac34ccae638e0c0335b4170e031328868
 </value>
   </data>
 </root>
