@@ -1,0 +1,10 @@
+E:\C#\Moje projekty\Arkanoid2.0\bin\Debug\Arkanoid2.0.exe.config
+E:\C#\Moje projekty\Arkanoid2.0\bin\Debug\Arkanoid2.0.exe
+E:\C#\Moje projekty\Arkanoid2.0\bin\Debug\Arkanoid2.0.pdb
+E:\C#\Moje projekty\Arkanoid2.0\obj\Debug\Arkanoid2.0.csprojResolveAssemblyReference.cache
+E:\C#\Moje projekty\Arkanoid2.0\obj\Debug\Arkanoid2._0.Properties.Resources.resources
+E:\C#\Moje projekty\Arkanoid2.0\obj\Debug\Arkanoid2.0.csproj.GenerateResource.Cache
+E:\C#\Moje projekty\Arkanoid2.0\obj\Debug\Arkanoid2.0.csproj.CoreCompileInputs.cache
+E:\C#\Moje projekty\Arkanoid2.0\obj\Debug\Arkanoid2.0.exe
+E:\C#\Moje projekty\Arkanoid2.0\obj\Debug\Arkanoid2.0.pdb
+E:\C#\Moje projekty\Arkanoid2.0\obj\Debug\Arkanoid2.Form1.resources
