@@ -29,10 +29,10 @@ namespace projekt_pa_Dorian1996
         private int paddle_y; //Zmienna typu całkowitego która posłuży do opisu współrzędnej y paletki.
         private Direction paddle_direction; //Zmienna opisująca kierunek paletki,nowy obiekt klasy enum Direction który może używać jej parametrów.
         private bool mouseIsDown; //Zmienna typu logicznego która sprawdza czy przycisk myszki jest wciśnięty.
-        private int mouse_x;
-        private int mouse_y;
-        private bool ballDirectionX;
-        private bool ballDirectionY;
+        private int mouse_x; //Zmienna typu całkowitego, która będzie przechowywać współrzędną x kursora.
+        private int mouse_y; //Zmienna typu całkowitego, która będzie przechowywać współrzędną y kursora.
+        private bool ballDirectionX; //Zmienna typu logicznego, która służy do operowania x-owym kierunkiem wektora prędkości piłki 
+        private bool ballDirectionY; //Zmienna typu logicznego, która służy do operowania y-owym kierunkiem wektora prędkości piłki 
 
         public FormMain()
         {
@@ -50,9 +50,9 @@ namespace projekt_pa_Dorian1996
             paddle_direction = Direction.None; //Nadanie wartości początkowej zmiennej paddle_direction, czyli nadanie paletce kierunku "spoczynkowego", żeby sie nie ruszała od początku.
             ballOnPaddle = true; //Nadanie wartości początkowej zmiennej ballOnPaddle, czyli piłka znajduje się na paletce.
             mouseIsDown = false; //Nadanie wartości początkowej zmiennej mouseDown na false, ponieważ mysz nie jest wciśnięta na początku.
-            ballDirectionY = true;
-            ballDirectionX = true;
-    }
+            ballDirectionX = true; //Nadanie wartości początkowej zmiennej ballDirectionX.
+            ballDirectionY = true; //Nadanie wartości początkowej zmiennej ballDirectionY.
+        }
 
         private void TimerRefresh_Tick(object sender, EventArgs e) //Obsługa zdarzeń licznika czasu
         {
@@ -62,82 +62,94 @@ namespace projekt_pa_Dorian1996
                 {
                     paddle_x += 0; //Jeżeli paletka ma spoczynkowy kierunek nie została przyciśnięta żadna strzałka na klawiaturze, to niech paletka stoi w miejscu.
                     ball_x += 0; //Jeśli piłka leży na paletce to stoi w miejscu razem z nią
-                    paddle.Location = new Point(paddle_x, paddle_y); //Przesuwanie PictureBoxa za pomocą Location
-                    ball.Location = new Point(ball_x, ball_y); //Przesuwanie PictureBoxa za pomocą Location
                 }
 
-                else if (paddle_direction == Direction.Right)
+                else if (paddle_direction == Direction.Right && paddle_x < 720)
                 {
-                    paddle_x += 10; //Jeżeli paletka ma prawy kierunek, czyli została przyciśnięta prawa strzałka na klawiaturze, to przesuń w prawo paletkę o 6 pixeli.
+                    paddle_x += 10; //Jeżeli paletka ma prawy kierunek, czyli została przyciśnięta prawa strzałka na klawiaturze, i nie wychodzi z prawej strony poza obszar kliencki okna, to przesuń w prawo paletkę o 10 pixeli.
                     ball_x += 10; //Jeśli piłka leży na paletce to porusza się z nią w prawo
-                    paddle.Location = new Point(paddle_x, paddle_y); //Przesuwanie PictureBoxa za pomocą Location
-                    ball.Location = new Point(ball_x, ball_y); //Przesuwanie PictureBoxa za pomocą Location
                 }
 
-                else if (paddle_direction == Direction.Left)
+                else if (paddle_direction == Direction.Left && paddle_x > 0)
                 {
-                    paddle_x -= 10; //Jeżeli paletka ma lewy kierunek, czyli została przyciśnięta prawa strzałka na klawiaturze, to przesuń w lewo paletkę o 6 pixeli.
+                    paddle_x -= 10; //Jeżeli paletka ma lewy kierunek, czyli została przyciśnięta lewa strzałka na klawiaturze,  i nie wychodzi z lewej strony poza obszar kliencki okna, to przesuń w lewo paletkę o 10 pixeli.
                     ball_x -= 10; //Jeśli piłka leży na paletce to porusza się z nią
-                    paddle.Location = new Point(paddle_x, paddle_y); //Przesuwanie PictureBoxa za pomocą Location
-                    ball.Location = new Point(ball_x, ball_y); //Przesuwanie PictureBoxa za pomocą Location
                 }
+                paddle.Location = new Point(paddle_x, paddle_y); //Przesuwanie paletki za pomocą Location
+                ball.Location = new Point(ball_x, ball_y); //Przesuwanie piłki za pomocą Location
             }
 
             else if (ballOnPaddle == false) //Jeżeli piłki nie ma na paletce
             {
                 //KOLIZJA PIŁKI Z OKNEM
                 //Bool
-                if (ball_x <= 0 && ballDirectionX == true)
+                if (ball_x <= 0) //Jeżeli piłka dotknie lewej krawędzi ekranu, to zmień zwrot wektora X prędkości piłki na przeciwny(odbicie w poziomie) 
                 {
-                    ballDirectionX = false;
+                    if (ballDirectionX == true) 
+                    {
+                        ballDirectionX = false; 
+                    }
+                    else
+                    {
+                        ballDirectionX = true;
+                    }
                 }
-                else if (ball_x <= 0 && ballDirectionX == false)
+
+                else if (ball_x >= 780) //Jeżeli piłka dotknie prawej krawędzi ekranu, to zmień zwrot wektora X prędkości piłki na przeciwny(odbicie w poziomie)
                 {
-                    ballDirectionX = true;
+                    if (ballDirectionX == false)
+                    {
+                        ballDirectionX = true;
+                    }
+                    else
+                    {
+                        ballDirectionX = false;
+                    }
                 }
-                else if (ball_x >= 780 && ballDirectionX == false)
+
+                else if (ball_y <= 0) //Jeżeli piłka dotknie górnej krawędzi ekranu, to zmień zwrot wektora Y prędkości piłki na przeciwny(odbicie w pionie)
                 {
-                    ballDirectionX = true;
+                    if (ballDirectionY == true)
+                    {
+                        ballDirectionY = false;
+                    }
+                    else
+                    {
+                        ballDirectionY = true;
+                    }
                 }
-                else if (ball_x >= 780 && ballDirectionX == true)
+
+                else if (ball_y >= 560) //Jeżeli piłka dotknie dolnej krawędzi ekranu, to zmień zwrot wektora Y prędkości piłki na przeciwny(odbicie w pionie)
                 {
-                    ballDirectionX = false;
+                    if (ballDirectionY == false)
+                    {
+                        ballDirectionY = true;
+                    }
+                    else
+                    {
+                        ballDirectionY = false;
+                    }
                 }
-                else if (ball_y <= 0 && ballDirectionY == true)
-                {
-                    ballDirectionY = false;
-                }
-                else if (ball_y <= 0 && ballDirectionY == false)
-                {
-                    ballDirectionY = true;
-                }
-                else if (ball_y >= 560 && ballDirectionY == false)
-                {
-                    ballDirectionY = true;
-                }
-                else if (ball_y >= 560 && ballDirectionY == true)
-                {
-                    ballDirectionY = false;
-                }
+                
                 //Wykorzystanie booli do ukierunkowania piłki
                 if (ballDirectionX == true && ballDirectionY == true)
                 {
-                    ball_x -= -mouse_x;
+                    ball_x -= -mouse_x; //Jeżeli wektor X i wektor Y jest prawdziwy to ruch piłki w prawo i do góry
                     ball_y -= 10;
                 }
                 else if (ballDirectionX == true && ballDirectionY == false)
                 {
-                    ball_x -= -mouse_x;
+                    ball_x -= -mouse_x; //Jeżeli wektor X i wektor Y jest prawdziwy to ruch piłki w prawo i w dół
                     ball_y -= -10;
                 }
                 else if (ballDirectionX == false && ballDirectionY == true)
                 {
-                    ball_x -= mouse_x;
+                    ball_x -= mouse_x; //Jeżeli wektor X i wektor Y jest prawdziwy to ruch piłki w lewo i do góry
                     ball_y -= 10;
                 }
                 else if (ballDirectionX == false && ballDirectionY == false)
                 {
-                    ball_x -= mouse_x;
+                    ball_x -= mouse_x; //Jeżeli wektor X i wektor Y jest prawdziwy to ruch piłki w lewo i w dół 
                     ball_y -= -10;
                 }
                 //Przesuwanie piłki za pomocą Location
@@ -148,13 +160,13 @@ namespace projekt_pa_Dorian1996
                 {
                     paddle_x += 0; //Jeżeli paletka ma spoczynkowy kierunek nie została przyciśnięta żadna strzałka na klawiaturze, to niech paletka stoi w miejscu.
                 }
-                else if (paddle_direction == Direction.Right)
+                else if (paddle_direction == Direction.Right && paddle_x < 720)
                 {
-                    paddle_x += 10; //Jeżeli paletka ma prawy kierunek, czyli została przyciśnięta prawa strzałka na klawiaturze, to przesuń w prawo paletkę o 6 pixeli.
+                    paddle_x += 10; //Jeżeli paletka ma prawy kierunek, czyli została przyciśnięta prawa strzałka na klawiaturze, i nie wychodzi z prawej strony poza obszar kliencki okna, to przesuń w prawo paletkę o 10 pixeli.
                 }
-                else if (paddle_direction == Direction.Left)
+                else if (paddle_direction == Direction.Left && paddle_x > 0)
                 {
-                    paddle_x -= 10; //Jeżeli paletka ma lewy kierunek, czyli została przyciśnięta prawa strzałka na klawiaturze, to przesuń w lewo paletkę o 6 pixeli.
+                    paddle_x -= 10; //Jeżeli paletka ma lewy kierunek, czyli została przyciśnięta lewa strzałka na klawiaturze, i nie wychodzi z lewej strony poza obszar kliencki okna, to przesuń w lewo paletkę o 10 pixeli.
                 }
                 //Przesuwanie paletki za pomocą Location
                 paddle.Location = new Point(paddle_x, paddle_y); 

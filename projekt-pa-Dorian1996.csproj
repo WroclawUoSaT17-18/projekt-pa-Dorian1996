@@ -45,16 +45,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FormMain.cs">
+    <Compile Include="C:\Users\Dorian\Desktop\FormMain.cs">
       <SubType>Form</SubType>
+      <Link>FormMain.cs</Link>
     </Compile>
-    <Compile Include="FormMain.Designer.cs">
+    <Compile Include="C:\Users\Dorian\Desktop\FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
+      <Link>FormMain.Designer.cs</Link>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FormMain.resx">
+    <EmbeddedResource Include="C:\Users\Dorian\Desktop\FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
+      <Link>FormMain.resx</Link>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
