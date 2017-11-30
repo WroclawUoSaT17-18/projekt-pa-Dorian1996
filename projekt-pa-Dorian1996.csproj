@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1058B7B3-01D6-4C1E-8E15-D25C10020EA6}</ProjectGuid>
+    <ProjectGuid>{5CCBE83F-499A-40C4-97D1-4F54AF69BD36}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>projekt_pa_Dorian1996</RootNamespace>
     <AssemblyName>projekt-pa-Dorian1996</AssemblyName>
@@ -45,19 +45,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="C:\Users\Dorian\Desktop\FormMain.cs">
+    <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
-      <Link>FormMain.cs</Link>
     </Compile>
-    <Compile Include="C:\Users\Dorian\Desktop\FormMain.Designer.cs">
+    <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
-      <Link>FormMain.Designer.cs</Link>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="C:\Users\Dorian\Desktop\FormMain.resx">
+    <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
-      <Link>FormMain.resx</Link>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

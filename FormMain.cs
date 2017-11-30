@@ -32,7 +32,8 @@ namespace projekt_pa_Dorian1996
         private bool mouseRightIsDown; //Zmienna typu logicznego która sprawdza czy przycisk myszki jest wciśnięty.
         private bool ballDirectionX; //Zmienna typu logicznego, która służy do operowania x-owym kierunkiem wektora prędkości piłki 
         private bool ballDirectionY; //Zmienna typu logicznego, która służy do operowania y-owym kierunkiem wektora prędkości piłki 
-        
+        private int livesCounter;
+
         public FormMain()
         {
             InitializeComponent();//Metoda obsługująca kontrolki interfejsu użytkownika.
@@ -40,7 +41,7 @@ namespace projekt_pa_Dorian1996
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"../../Muzyka/background.wav"); //Wczytanie muzyki
             player.Play(); //Odtworzenie muzyki
             block_x = 378; //Nadanie wartości początkowej zmiennej block_x, czyli nadanie współrzędnej x blokowi.
-            block_y = 20; //Nadanie wartości początkowej zmiennej block_y, czyli nadanie współrzędnej y blokowi.
+            block_y = 300; //Nadanie wartości początkowej zmiennej block_y, czyli nadanie współrzędnej y blokowi.
             block.Location = new Point(block_x, block_y); //Nadanie wartości początkowej lokalizacji bloku.
             ball_x = 378; //Nadanie wartości początkowej zmiennej ball_x, czyli nadanie współrzędnej x piłki.
             ball_y = 546; //Nadanie wartości początkowej zmiennej ball_y, czyli nadanie współrzędnej y piłki.
@@ -52,7 +53,9 @@ namespace projekt_pa_Dorian1996
             mouseRightIsDown = false; //Nadanie wartości początkowej zmiennej mouseDown na false, ponieważ mysz nie jest wciśnięta na początku.
             ballDirectionX = true; //Nadanie wartości początkowej zmiennej ballDirectionX.
             ballDirectionY = true; //Nadanie wartości początkowej zmiennej ballDirectionY.
-        }
+            livesCounter = 3;
+            livesCounterLabel.Text = Convert.ToString(livesCounter);
+    }
 
         private void TimerRefresh_Tick(object sender, EventArgs e) //Obsługa zdarzeń licznika czasu
         {
@@ -77,25 +80,26 @@ namespace projekt_pa_Dorian1996
                 }
                 paddle.Location = new Point(paddle_x, paddle_y); //Przesuwanie paletki za pomocą Location
                 ball.Location = new Point(ball_x, ball_y); //Przesuwanie piłki za pomocą Location
-                block.Location = new Point(block_x,block_y);
+                block.Location = new Point(block_x, block_y);
             }
 
             else if (ballOnPaddle == false) //Jeżeli piłki nie ma na paletce
             {
                 //KOLIZJA PIŁKI Z OKNEM
-                //Bool
+                //LEWA KRAWĘDŹ
                 if (ball_x <= 0) //Jeżeli piłka dotknie lewej krawędzi ekranu, to zmień zwrot wektora X prędkości piłki na przeciwny(odbicie w poziomie) 
                 {
-                    if (ballDirectionX == true) 
+                    if (ballDirectionX == true)
                     {
-                        ballDirectionX = false; 
+                        ballDirectionX = false;
                     }
                     else
                     {
                         ballDirectionX = true;
                     }
                 }
-
+                
+                //PRAWA KRAWĘDŹ
                 else if (ball_x >= 780) //Jeżeli piłka dotknie prawej krawędzi ekranu, to zmień zwrot wektora X prędkości piłki na przeciwny(odbicie w poziomie)
                 {
                     if (ballDirectionX == false)
@@ -107,7 +111,8 @@ namespace projekt_pa_Dorian1996
                         ballDirectionX = false;
                     }
                 }
-
+                
+                //GORNA KRAWĘDŹ
                 else if (ball_y <= 0) //Jeżeli piłka dotknie górnej krawędzi ekranu, to zmień zwrot wektora Y prędkości piłki na przeciwny(odbicie w pionie)
                 {
                     if (ballDirectionY == true)
@@ -119,45 +124,67 @@ namespace projekt_pa_Dorian1996
                         ballDirectionY = true;
                     }
                 }
-
-                else if (ball_y >= 560) //Jeżeli piłka dotknie dolnej krawędzi ekranu, to zmień zwrot wektora Y prędkości piłki na przeciwny(odbicie w pionie)
+                
+                //DOLNA KRAWĘDŹ
+                else if (ball_y >= 560)
                 {
-                    if (ballDirectionY == false)
+                    livesCounter = livesCounter - 1;
+                    livesCounterLabel.Text = Convert.ToString(livesCounter);
+                    paddle_x = 350;
+                    paddle_y = 550;
+                    ball_x = 374;
+                    ball_y = 540;
+                    ballOnPaddle = true;
+                }
+
+                //KOLIZJA PIŁKI Z PALETKĄ
+                if(ballOnPaddle == false)
+                {
+                    if (ball_x + 4 >= paddle_x && ball_x <= paddle_x+64 && ball_y + 4 >= paddle_y && paddle_y + 4 <= paddle_y + 16)
                     {
                         ballDirectionY = true;
                     }
-                    else
-                    {
-                        ballDirectionY = false;
-                    }
                 }
 
-                /*//KOLIZJA PIŁKI Z BLOKIEM
-                if (ball_x <= block_x && ball_x >= block_x && ball_y <= block_y && ball_y >= block_y) //Jeżeli piłka dotknie lewej krawędzi ekranu, to zmień zwrot wektora X prędkości piłki na przeciwny(odbicie w poziomie) 
+                //KOLIZJA PIŁKI Z BLOKIEM
+                //LEWA KRAWĘDŹ
+                if (ball_x+4 == block_x && ball_y+4 >= block_y && ball_y+4 <= block_y+16) 
                 {
-                    if (ballDirectionX == true)
-                    {
-                        ballDirectionX = false;
-                    }
-                    else
-                    {
-                        ballDirectionX = true;
-                    }
-                }*/
+                    ballDirectionX = false;
+                }
 
+                //PRAWA KRAWĘDŹ
+                else if (ball_x+4 == block_x+48 && ball_y+4 >= block_y && ball_y+4 <= block_y + 16) 
+                {
+                    ballDirectionX = true;
+                }
 
-                //Wykorzystanie booli do ukierunkowania piłki
+                //GORNA KRAWĘDŹ
+                else if (ball_y+4 == block_y && ball_x+4 >= block_x && ball_x+4 <= block_x+48) 
+                {
+                    ballDirectionY = true;
+                }
+
+                //DOLNA KRAWĘDŹ
+                else if (ball_y+4 == block_y+16 && ball_x+4 >= block_x && ball_x+4 <= block_x+48) 
+                {
+                    ballDirectionY = false;
+                }
+
+                
+                
+                //UKIERUNKOWANIE PIŁKI
                 if (ballDirectionX == true)
                 {
                     if (ballDirectionY == true)
                     {
-                        ball_x += 10; //Jeżeli wektor X i wektor Y jest prawdziwy to ruch piłki w prawo i do góry
-                        ball_y -= 10;
+                        ball_x += 6; //RUCH PRAWO-GORA
+                        ball_y -= 6;
                     }
                     else
                     {
-                        ball_x += 10; //Jeżeli wektor X i wektor Y jest prawdziwy to ruch piłki w prawo i w dół
-                        ball_y += 10;
+                        ball_x += 6; //RUCH PRAWO-DOŁ
+                        ball_y += 6;
                     }
                 }
 
@@ -165,16 +192,16 @@ namespace projekt_pa_Dorian1996
                 {
                     if (ballDirectionY == true)
                     {
-                        ball_x -= 10; //Jeżeli wektor X i wektor Y jest prawdziwy to ruch piłki w lewo i do góry
-                        ball_y -= 10;
+                        ball_x -= 6; //RUCH LEWO-GORA
+                        ball_y -= 6;
                     }
                     else
                     {
-                        ball_x -= 10; //Jeżeli wektor X i wektor Y jest prawdziwy to ruch piłki w lewo i w dół 
-                        ball_y += 10;
+                        ball_x -= 6; //RUCH LEWO-DOŁ 
+                        ball_y += 6;
                     }
                 }
- 
+
                 //Przesuwanie piłki za pomocą Location
                 ball.Location = new Point(ball_x, ball_y);
 
@@ -192,15 +219,15 @@ namespace projekt_pa_Dorian1996
                     paddle_x -= 10; //Jeżeli paletka ma lewy kierunek, czyli została przyciśnięta lewa strzałka na klawiaturze, i nie wychodzi z lewej strony poza obszar kliencki okna, to przesuń w lewo paletkę o 10 pixeli.
                 }
                 //Przesuwanie paletki za pomocą Location
-                paddle.Location = new Point(paddle_x, paddle_y); 
+                paddle.Location = new Point(paddle_x, paddle_y);
 
             }
 
-            Invalidate(); //Odświeża obraz czyli co każdy "tick" licznika zostany odświeżony obraz co umożliwia animacje.
+            Invalidate(); //Odświeża obraz czyli co każdy "tick" licznika zostanie odświeżony obraz co umożliwia animacje.
         }
 
-            private void FormMain_KeyDown(object sender, KeyEventArgs e) //Obsługa zdarzeń wciśniętych klawiszy na klawiaturze.
-            {
+        private void FormMain_KeyDown(object sender, KeyEventArgs e) //Obsługa zdarzeń wciśniętych klawiszy na klawiaturze.
+        {
             if (e.KeyCode == Keys.Left)
             {
                 paddle_direction = Direction.Left; //Jeżeli została wciśnięta lewa strzałka to nadaj lewy kierunek paletce.
@@ -211,8 +238,8 @@ namespace projekt_pa_Dorian1996
             }
         }
 
-            private void FormMain_KeyUp(object sender, KeyEventArgs e) //Obsługa zdarzeń zwolnionych klawiszy na klawiaturze.
-            {
+        private void FormMain_KeyUp(object sender, KeyEventArgs e) //Obsługa zdarzeń zwolnionych klawiszy na klawiaturze.
+        {
             if (e.KeyCode == Keys.Left)
             {
                 paddle_direction = Direction.None; //Jeżeli została zwolniona lewa strzałka to nadaj kierunek spoczynkowy paletce.
@@ -223,8 +250,8 @@ namespace projekt_pa_Dorian1996
             }
         }
 
-            private void FormMain_MouseDown(object sender, MouseEventArgs e)
-            {
+        private void FormMain_MouseDown(object sender, MouseEventArgs e)
+        {
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
                 mouseLeftIsDown = true; //Lewy przycisk myszki został wciśnięty
@@ -235,8 +262,8 @@ namespace projekt_pa_Dorian1996
             }
         }
 
-            private void FormMain_MouseUp(object sender, MouseEventArgs e)
-            {
+        private void FormMain_MouseUp(object sender, MouseEventArgs e)
+        {
             if (mouseLeftIsDown == true && ballOnPaddle == true)
             {
                 mouseLeftIsDown = false; //Lewy przycisk myszki został zwolniony

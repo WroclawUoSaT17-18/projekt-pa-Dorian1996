@@ -34,6 +34,8 @@
             this.paddle = new System.Windows.Forms.PictureBox();
             this.ball = new System.Windows.Forms.PictureBox();
             this.block = new System.Windows.Forms.PictureBox();
+            this.livesLabel = new System.Windows.Forms.Label();
+            this.livesCounterLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.paddle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ball)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.block)).BeginInit();
@@ -47,12 +49,8 @@
             // 
             // paddle
             // 
-            this.paddle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.paddle.BackColor = System.Drawing.Color.Transparent;
-            this.paddle.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("paddle.BackgroundImage")));
-            this.paddle.Location = new System.Drawing.Point(363, 545);
+            this.paddle.Image = ((System.Drawing.Image)(resources.GetObject("paddle.Image")));
+            this.paddle.Location = new System.Drawing.Point(361, 423);
             this.paddle.Name = "paddle";
             this.paddle.Size = new System.Drawing.Size(64, 16);
             this.paddle.TabIndex = 0;
@@ -60,12 +58,8 @@
             // 
             // ball
             // 
-            this.ball.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ball.BackColor = System.Drawing.Color.Transparent;
-            this.ball.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ball.BackgroundImage")));
-            this.ball.Location = new System.Drawing.Point(389, 545);
+            this.ball.Image = ((System.Drawing.Image)(resources.GetObject("ball.Image")));
+            this.ball.Location = new System.Drawing.Point(389, 409);
             this.ball.Name = "ball";
             this.ball.Size = new System.Drawing.Size(8, 8);
             this.ball.TabIndex = 1;
@@ -73,30 +67,48 @@
             // 
             // block
             // 
-            this.block.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.block.BackColor = System.Drawing.Color.Transparent;
-            this.block.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("block.BackgroundImage")));
-            this.block.Location = new System.Drawing.Point(379, 12);
+            this.block.Image = ((System.Drawing.Image)(resources.GetObject("block.Image")));
+            this.block.Location = new System.Drawing.Point(361, 226);
             this.block.Name = "block";
             this.block.Size = new System.Drawing.Size(48, 16);
             this.block.TabIndex = 2;
             this.block.TabStop = false;
             // 
+            // livesLabel
+            // 
+            this.livesLabel.AutoSize = true;
+            this.livesLabel.Font = new System.Drawing.Font("Lucida Sans Typewriter", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.livesLabel.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.livesLabel.Location = new System.Drawing.Point(12, 9);
+            this.livesLabel.Name = "livesLabel";
+            this.livesLabel.Size = new System.Drawing.Size(100, 23);
+            this.livesLabel.TabIndex = 3;
+            this.livesLabel.Text = "Życia :";
+            // 
+            // livesCounterLabel
+            // 
+            this.livesCounterLabel.AutoSize = true;
+            this.livesCounterLabel.Font = new System.Drawing.Font("Lucida Sans Typewriter", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.livesCounterLabel.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.livesCounterLabel.Location = new System.Drawing.Point(118, 9);
+            this.livesCounterLabel.Name = "livesCounterLabel";
+            this.livesCounterLabel.Size = new System.Drawing.Size(88, 23);
+            this.livesCounterLabel.TabIndex = 4;
+            this.livesCounterLabel.Text = "label2";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.livesCounterLabel);
+            this.Controls.Add(this.livesLabel);
             this.Controls.Add(this.block);
             this.Controls.Add(this.ball);
             this.Controls.Add(this.paddle);
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "FormMain";
-            this.Text = "Arkanoid Dorian Antonkiewicz";
+            this.Text = "Arkanoid";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormMain_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FormMain_KeyUp);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormMain_MouseDown);
@@ -105,6 +117,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.ball)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.block)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -114,6 +127,8 @@
         private System.Windows.Forms.PictureBox paddle;
         private System.Windows.Forms.PictureBox ball;
         private System.Windows.Forms.PictureBox block;
+        private System.Windows.Forms.Label livesLabel;
+        private System.Windows.Forms.Label livesCounterLabel;
     }
 }
 
