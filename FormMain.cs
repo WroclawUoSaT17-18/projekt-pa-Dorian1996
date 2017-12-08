@@ -12,7 +12,7 @@ namespace projekt_pa_Dorian1996
 {
     public partial class FormMain : Form
     {
-
+        PictureBox[,] pictureBoxes = new PictureBox[10, 3];
         enum Direction //Typ wyliczeniowy służący do nadania kierunku, który z kolei umożliwi ruch paletki w odpowiednim kierunku. Przyjmuje wartości: Left, Right i None.
         {
             Left,  //Lewy kierunek - Left = 0.
@@ -33,7 +33,7 @@ namespace projekt_pa_Dorian1996
         private int livesCounter; //Zmienna typu całkowitego, która będzie służyła jako licznik żyć gracza.
         private int scoreCounter; //Zmienna typu całkowitego, która będzie służyła jako licznik punktów gracza.
         private int blockCounter; //Zmienna typu całkowitego, która będzie służyła jako licznik bloków na planszy.
-        private int block1_x; //Zmienna typu całkowitego, która posłuży do opisu współrzędnej x bloku.
+      /*  private int block1_x; //Zmienna typu całkowitego, która posłuży do opisu współrzędnej x bloku.
         private int block1_y; //Zmienna typu całkowitego, która posłuży do opisu współrzędnej y bloku.
         private int block2_x; //Zmienna typu całkowitego, która posłuży do opisu współrzędnej x bloku.
         private int block2_y; //Zmienna typu całkowitego, która posłuży do opisu współrzędnej y bloku.
@@ -73,33 +73,36 @@ namespace projekt_pa_Dorian1996
         private int block19_y; //Zmienna typu całkowitego, która posłuży do opisu współrzędnej y bloku.
         private int block20_x; //Zmienna typu całkowitego, która posłuży do opisu współrzędnej x bloku.
         private int block20_y; //Zmienna typu całkowitego, która posłuży do opisu współrzędnej y bloku.
-
+        */
         public FormMain()
         {
             InitializeComponent(); //Metoda obsługująca kontrolki interfejsu użytkownika.
 
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"../../Muzyka/background.wav"); //Wczytanie muzyki.
             player.Play(); //Odtworzenie muzyki
-            block1.Location = new Point(block1_x, block1_y);
-            block2.Location = new Point(block2_x, block2_y);
-            block3.Location = new Point(block3_x, block3_y);
-            block4.Location = new Point(block4_x, block4_y);
-            block5.Location = new Point(block5_x, block5_y);
-            block6.Location = new Point(block6_x, block6_y);
-            block7.Location = new Point(block7_x, block7_y);
-            block8.Location = new Point(block8_x, block8_y);
-            block9.Location = new Point(block9_x, block9_y);
-            block10.Location = new Point(block10_x, block10_y);
-            block11.Location = new Point(block11_x, block11_y);
-            block12.Location = new Point(block12_x, block12_y);
-            block13.Location = new Point(block13_x, block13_y);
-            block14.Location = new Point(block14_x, block14_y);
-            block15.Location = new Point(block15_x, block15_y);
-            block16.Location = new Point(block16_x, block16_y);
-            block17.Location = new Point(block17_x, block17_y);
-            block18.Location = new Point(block18_x, block18_y);
-            block19.Location = new Point(block19_x, block19_y);
-            block20.Location = new Point(block20_x, block20_y);
+                           // for (int i =100; i<600; i+= 50)
+                           //for (int j =100; j<600; j+= 50)
+//############################ do korekty
+            /*           block1.Location = new Point(i, j);
+                       block2.Location = new Point(block2_x, block2_y);
+                       block3.Location = new Point(block3_x, block3_y);
+                       block4.Location = new Point(block4_x, block4_y);
+                       block5.Location = new Point(block5_x, block5_y);
+                       block6.Location = new Point(block6_x, block6_y);
+                       block7.Location = new Point(block7_x, block7_y);
+                       block8.Location = new Point(block8_x, block8_y);
+                       block9.Location = new Point(block9_x, block9_y);
+                       block10.Location = new Point(block10_x, block10_y);
+                       block11.Location = new Point(block11_x, block11_y);
+                       block12.Location = new Point(block12_x, block12_y);
+                       block13.Location = new Point(block13_x, block13_y);
+                       block14.Location = new Point(block14_x, block14_y);
+                       block15.Location = new Point(block15_x, block15_y);
+                       block16.Location = new Point(block16_x, block16_y);
+                       block17.Location = new Point(block17_x, block17_y);
+                       block18.Location = new Point(block18_x, block18_y);
+                       block19.Location = new Point(block19_x, block19_y);
+                       block20.Location = new Point(block20_x, block20_y);*/
             ball_x = 378; //Nadanie wartości początkowej zmiennej ball_x, czyli nadanie współrzędnej x piłki.
             ball_y = 546; //Nadanie wartości początkowej zmiennej ball_y, czyli nadanie współrzędnej y piłki.
             paddle_x = 350; //Nadanie wartości początkowej zmiennej paddle_x, czyli nadanie współrzędnej x paletki.
@@ -115,7 +118,7 @@ namespace projekt_pa_Dorian1996
             scoreCounter = 0; //Nadanie wartośći początkowej zmiennej scoreCounter, czyli nastawienie liczby punktów gracza na 0.
             scoreCounterLabel.Text = Convert.ToString(scoreCounter);
             blockCounter = 0;
-            block1_x = 100; //Nadanie wartości początkowej zmiennej block_y, czyli nadanie współrzędnej y blokowi.
+            /*block1_x = 100; //Nadanie wartości początkowej zmiennej block_y, czyli nadanie współrzędnej y blokowi.
             block1_y = 100; //Nadanie wartości początkowej zmiennej block_y, czyli nadanie współrzędnej y blokowi.
             block2_x = 160; //Nadanie wartości początkowej zmiennej block_x, czyli nadanie współrzędnej x blokowi.
             block2_y = 100; //Nadanie wartości początkowej zmiennej block_y, czyli nadanie współrzędnej y blokowi.
@@ -156,7 +159,7 @@ namespace projekt_pa_Dorian1996
             block20_x = 640; //Nadanie wartości początkowej zmiennej block_x, czyli nadanie współrzędnej x blokowi.
             block20_y = 200; //Nadanie wartości początkowej zmiennej block_y, czyli nadanie współrzędnej y blokowi.
 
-            /*PictureBox[,] pictureBoxes = new PictureBox[10, 3];
+    */
 
             for (int j = 0; j < 3; j++)
             {
@@ -169,9 +172,10 @@ namespace projekt_pa_Dorian1996
                     pictureBoxes[i, j].ImageLocation = @"../../Sprity/spr_block.png";
 
                     this.Controls.Add(pictureBoxes[i, j]);
+
                 };
             }
-            */
+            
         }
 
         private void TimerRefresh_Tick(object sender, EventArgs e) //Obsługa zdarzeń licznika czasu. Licznik ten służy do odświeżania pozycji kontrolek na ekranie, a jego interwał to 1ms czyli co 0,001 sekundy wykonywany jest ten kod.
@@ -292,7 +296,7 @@ namespace projekt_pa_Dorian1996
                 }
 
                 //LEWA KRAWĘDŹ PIŁKI Z PRAWĄ KRAWĘDZIĄ BLOKU
-                else if (ball_x >= block1_x + 46 && ball_x + 1 <= block1_x + 47 && ball_y >= block1_y && ball_y + 7 <= block1_y + 15)
+                else if (ball_x >= pictureBoxes[1,1].Location.X + 46 && ball_x + 1 <= block1_x + 47 && ball_y >= block1_y && ball_y + 7 <= block1_y + 15)
                 {
                     ballDirectionX = true;
                     scoreCounter = scoreCounter + 5;
