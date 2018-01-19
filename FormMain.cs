@@ -20,7 +20,7 @@ namespace projekt_pa_Dorian1996
             None   //Żaden (kierunek spoczynkowy) - None = 2.
         }
 
-        PictureBox[,] pictureBoxes = new PictureBox[10, 3];
+        PictureBox[,] pictureBoxes = new PictureBox[10, 3]; //Nowa instancja klasy pictureBoxes o typie dwuwymiarowej tablicy PictureBoxów?
         private bool ballOnPaddle; //Zmienna typu logicznego, która posłuży do opisu współrzędnej czy piłka przylega do paletki.
         private int ball_x; //Zmienna typu całkowitego, która posłuży do opisu współrzędnej x piłki.
         private int ball_y; //Zmienna typu całkowitego, która posłuży do opisu współrzędnej y piłki.
@@ -34,13 +34,18 @@ namespace projekt_pa_Dorian1996
         private int livesCounter; //Zmienna typu całkowitego, która będzie służyła jako licznik żyć gracza.
         private int scoreCounter; //Zmienna typu całkowitego, która będzie służyła jako licznik punktów gracza.
         private int blockCounter; //Zmienna typu całkowitego, która będzie służyła jako licznik bloków na planszy.
+        private bool fireballActive; //Zmienna typu logicznego, która sprawdza czy jest aktywny bonus ognistej piłki.
+        private PictureBox fireball; //Nowa isntancja klasy PictureBox czyli nowy PictureBox o nazwie fireball
+        private int fireball_x; //Zmienna typu całkowitego, która posłuży do opisu współrzędnej x ikony bonusu ognistej piłki.
+        private int fireball_y; //Zmienna typu całkowitego, która posłuży do opisu współrzędnej y ikony bonusu ognistej piłki.
+        private bool fireballFall; //Zmienna typu logicznego, która służy do kontroli spadania bonusu ognistej piłki.
 
         public FormMain()
         {
             InitializeComponent(); //Metoda obsługująca kontrolki interfejsu użytkownika.
 
-            System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"../../Muzyka/background.wav"); //Wczytanie muzyki.
-            player.Play(); //Odtworzenie muzyki
+            System.Media.SoundPlayer bg = new System.Media.SoundPlayer(@"../../Muzyka/background.wav"); //Wczytanie muzyki.
+            bg.Play(); //Odtworzenie muzyki
             ball_x = 378; //Nadanie wartości początkowej zmiennej ball_x, czyli nadanie współrzędnej x piłki.
             ball_y = 546; //Nadanie wartości początkowej zmiennej ball_y, czyli nadanie współrzędnej y piłki.
             paddle_x = 350; //Nadanie wartości początkowej zmiennej paddle_x, czyli nadanie współrzędnej x paletki.
@@ -56,6 +61,8 @@ namespace projekt_pa_Dorian1996
             scoreCounter = 0; //Nadanie wartośći początkowej zmiennej scoreCounter, czyli nastawienie liczby punktów gracza na 0.
             scoreCounterLabel.Text = Convert.ToString(scoreCounter); //Konwersja jawna typu int do string, żeby dało się wykonywać operacje na liczbach, a potem wpisywać je w pole tekst kontrolki label.
             blockCounter = 0; //Nadanie wartośći początkowej zmiennej blockCounter, czyli nastawienie liczby zniszczonych bloków przez gracza na 0.
+            fireballActive = false; //Nadanie wartości początkowej zmiennej fireballActive na false, ponieważ tryb ognistej piłki nie jest aktywny na początku gry.
+            fireballFall = false; //Nadanie wartości początkowej zmiennej fireballFall na false, ponieważ ikonka ognistej piłki nie spada na początku gry(nawet jej nie ma).
 
             //TWORZENIE BLOKOW
             for (int j = 0; j < 3; j++)
@@ -166,36 +173,61 @@ namespace projekt_pa_Dorian1996
                         //PRAWA KRAWĘDŹ PIŁKI Z LEWĄ KRAWĘDZIĄ BLOKU 
                         if (ball_x + 6 >= pictureBoxes[i, j].Location.X && ball_x + 7 <= pictureBoxes[i, j].Location.X + 1 && ball_y >= pictureBoxes[i, j].Location.Y && ball_y + 7 <= pictureBoxes[i, j].Location.Y + 15)
                         {
-                            ballDirectionX = false; //Zmień kierunek X piłki na przeciwny
+                            if (fireballActive == false) //Jeżeli tryb ognistej piłki nie jest aktywny
+                            {
+                                ballDirectionX = false; //Zmień kierunek X piłki na przeciwny
+                            }
+                            //System.Media.SoundPlayer destroy = new System.Media.SoundPlayer(@"../../Muzyka/destroy.wav");
+                            //destroy.Play(); //Odtworzenie muzyki
+                            rollBonus(i, j); //Uruchom metodę losującą bonus
                             scoreCounter = scoreCounter + 5; //Po zniszczeniu bloka zwiększ licznik punktów o 5.
                             blockCounter = blockCounter + 1; //Po zniszczeniu bloka zwiększ licznik zniszczonych bloków o 1.
                             pictureBoxes[i, j].Location = new Point(1000, 1000); //Po kolizji zniszcz blok(Przenieś go za obszar okna)
+       
                         }
 
                         //LEWA KRAWĘDŹ PIŁKI Z PRAWĄ KRAWĘDZIĄ BLOKU
                         else if (ball_x >= pictureBoxes[i, j].Location.X + 46 && ball_x + 1 <= pictureBoxes[i, j].Location.X + 47 && ball_y >= pictureBoxes[i, j].Location.Y && ball_y + 7 <= pictureBoxes[i, j].Location.Y + 15)
                         {
-                            ballDirectionX = true;
-                            scoreCounter = scoreCounter + 5;
-                            blockCounter = blockCounter + 1;
+                            if (fireballActive == false) //Jeżeli tryb ognistej piłki nie jest aktywny
+                            {
+                                ballDirectionX = true; //Zmień kierunek X piłki na przeciwny
+                            }
+                            //System.Media.SoundPlayer destroy = new System.Media.SoundPlayer(@"../../Muzyka/destroy.wav");
+                            //destroy.Play(); //Odtworzenie muzyki
+                            rollBonus(i, j); //Uruchom metodę losującą bonus
+                            scoreCounter = scoreCounter + 5; //Po zniszczeniu bloka zwiększ licznik punktów o 5.
+                            blockCounter = blockCounter + 1; //Po zniszczeniu bloka zwiększ licznik zniszczonych bloków o 1.
                             pictureBoxes[i, j].Location = new Point(1000, 1000); //Po kolizji zniszcz blok(Przenieś go za obszar okna)
                         }
 
                         //DOLNA KRAWĘDŹ PIŁKI Z GORNĄ KRAWĘDZIĄ BLOKU
                         else if (ball_x >= pictureBoxes[i, j].Location.X && ball_x + 7 <= pictureBoxes[i, j].Location.X + 47 && ball_y + 6 >= pictureBoxes[i, j].Location.Y && ball_y + 7 <= pictureBoxes[i, j].Location.Y + 1)
                         {
-                            ballDirectionY = true;
-                            scoreCounter = scoreCounter + 5;
-                            blockCounter = blockCounter + 1;
+                            if (fireballActive == false) //Jeżeli tryb ognistej piłki nie jest aktywny
+                            {
+                                ballDirectionY = true; //Zmień kierunek Y piłki na przeciwny
+                            }
+                            //System.Media.SoundPlayer destroy = new System.Media.SoundPlayer(@"../../Muzyka/destroy.wav");
+                            //destroy.Play(); //Odtworzenie muzyki
+                            rollBonus(i, j); //Uruchom metodę losującą bonus
+                            scoreCounter = scoreCounter + 5; //Po zniszczeniu bloka zwiększ licznik punktów o 5.
+                            blockCounter = blockCounter + 1; //Po zniszczeniu bloka zwiększ licznik zniszczonych bloków o 1.
                             pictureBoxes[i, j].Location = new Point(1000, 1000); //Po kolizji zniszcz blok(Przenieś go za obszar okna)
                         }
 
                         //GORNA KRAWĘDŹ PIŁKI Z DOLNĄ KRAWĘDZIĄ BLOKU
                         else if (ball_x >= pictureBoxes[i, j].Location.X && ball_x + 7 <= pictureBoxes[i, j].Location.X + 47 && ball_y >= pictureBoxes[i, j].Location.Y + 14 && ball_y + 1 <= pictureBoxes[i, j].Location.Y + 15)
                         {
-                            ballDirectionY = false;
-                            scoreCounter = scoreCounter + 5;
-                            blockCounter = blockCounter + 1;
+                            if (fireballActive == false) //Jeżeli tryb ognistej piłki nie jest aktywny
+                            {
+                                ballDirectionY = false; //Zmień kierunek Y piłki na przeciwny
+                            }
+                            //System.Media.SoundPlayer destroy = new System.Media.SoundPlayer(@"../../Muzyka/destroy.wav");
+                            //destroy.Play(); //Odtworzenie muzyki
+                            rollBonus(i, j); //Uruchom metodę losującą bonus
+                            scoreCounter = scoreCounter + 5; //Po zniszczeniu bloka zwiększ licznik punktów o 5.
+                            blockCounter = blockCounter + 1; //Po zniszczeniu bloka zwiększ licznik zniszczonych bloków o 1.
                             pictureBoxes[i, j].Location = new Point(1000, 1000); //Po kolizji zniszcz blok(Przenieś go za obszar okna)
                         }
                     };
@@ -251,13 +283,49 @@ namespace projekt_pa_Dorian1996
                 //Przesuwanie paletki za pomocą Location - Odświeżanie lokalizacji paletki.
                 paddle.Location = new Point(paddle_x, paddle_y);
 
-                if (livesCounter == 0 || blockCounter == 20)
+                if (livesCounter == 0 || blockCounter == 30)
                 {
-                    Application.Exit();
+                    Application.Exit(); //Jeżeli życia gracza spadną do zera lub wszystkie bloki zostaną zniszczone - zakończ grę.
                 }
             }
 
+            if (Controls.ContainsKey("fireball")) //Jeżeli ikona bonusu ognistej piłki istnieje to bonus zaczyna spadać. Jest to potrzebne do tego, że bez sprawdzania czy istnieje ikona bonusu ognistej piłki wyskakuje bład NullReferenceExeption, ponieważ kiedy ikona nie jest jeszcze stworzona nie możemy się do niej odnieść. 
+            {
+                fireballFall = true; //Jeżeli ikona bonusu ognistej piłki istnieje, to wartość zmiennej typu boolean zmieni się na true, co umożliwi spadek tej ikonki w dół.
+            }
+
+            if (fireballFall == true) //Jeżeli fireballFall = true
+            {
+                fireball_y += 2; //Ikona bonusu ognistej piłki będzie spadać w dół z prędkością dwa pixele na tick.
+                fireball.Location = new Point(fireball_x, fireball_y); //Odświeżanie pozycji ikony bonusu ognistej piłki co umożliwia jego ruch w dół.
+
+                if(fireball_x + 4 >= paddle_x && fireball_x <= paddle_x + 64 && fireball_y + 4 >= paddle_y && fireball_y + 4 <= paddle_y + 16) //Jeżeli ikona bonusu ognistej piłki trafi na paletkę
+                {
+                    ball.ImageLocation = @"../../Sprity/spr_fireball.png"; //Zmień sprite piłki na ognistą piłkę.
+                    fireballActive = true; //Włącz tryb ognistej piłki.
+                    Controls.Remove(fireball); //Usuń kontrolkę bonusu ognistej piłki.
+                }
+            }
+
+
             Invalidate(); //Odświeża obraz, czyli co każdy "tick"(0,001s) licznika zostanie odświeżony obraz, co umożliwia animacje.
+        }
+
+        private void rollBonus(int i,int j) //Metoda słuząca do tworzenia bonusów typu void(nic nie zwraca) pobiera zmienne całkowite i oraz j co umożliwia wygenerowanie bonusu na specyficznym bloku.
+        {
+            Random rnd = new Random(); //Nowa instancja klasy random pozwalająca zaimplementować losowanie liczb całkowitych.
+            int roll = rnd.Next(1, 2); //Zmienna roll typu całkowitego, która przechowuje losowaną liczbę całkowitą z przedziału (min, max).
+            if (roll == 1 && !Controls.ContainsKey("fireball")) //Jeżeli wylosowana liczba jest równa 1 oraz nie istnieje ikona bonusu ognistej piłki, to wytwórz ikonę bonusu ognistej piłki.
+            {
+                fireball_x = 100 + i * 60 + 16; //Zmienna fireball_x przechowuje współrzędna x ikony bonusu ognistej piłki, pozwala to odnieść się później do tej zmiennej i zmieniać ją.
+                fireball_y = 100 + j * 30; //Zmienna fireball_y przechowuje współrzędna y ikony bonusu ognistej piłki, pozwala to odnieść się później do tej zmiennej i zmieniać ją.
+                fireball = new PictureBox(); //Utworzenie ikony bonusu ognistej piłki.
+                fireball.Location = new Point(fireball_x, fireball_y); //Nastawienie lokalizacji ikony bonusu ognistej piłki na x=fireball_x y=fireball_y, czyli na środek bloku z którego wygenerował się bonus po zniszczeniu.
+                fireball.Name = "fireball"; //Nastawienie nazwy pictureBoxa bonusu ognistej piłki na "fireball".
+                fireball.Size = new Size(16, 16); //Nastawienie wielkości pictureBoxa bonusu ognistej piłki na 16x16, ponieważ takiej wielkości jest sprite.
+                fireball.ImageLocation = @"../../Sprity/spr_fireballbonus.png"; //Nastawienie sprite'a bonusu ognistej piłki.
+                this.Controls.Add(fireball); //Dodanie kontrolki do obszaru klienckiego okna.
+            }
         }
 
         private void FormMain_KeyDown(object sender, KeyEventArgs e) //Obsługa zdarzeń wciśniętych klawiszy na klawiaturze.
